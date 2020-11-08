@@ -31,12 +31,13 @@ test_data/
 pip install -r requirements.txt
 ```
 
-## Run project
+## Run
 
 - We use a final ensemble of models the generate the prediction results in `submission.csv`. 
 
 - You can run the project using the command:
 
 ```
-python run.py train_data test_data
+python run.py --train_data train_data --test_data test_data
 ```
+- Ensure that there are no trailing slashes in the argument. Example: `--train_data train_data/` is incorrect. Use `--train_data train_data` instead.
