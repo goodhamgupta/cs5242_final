@@ -1,4 +1,5 @@
 import os
+
 import pandas as pd
 from fastai.vision.data import get_image_files
 
@@ -12,9 +13,11 @@ class CustomEnsemblePredict:
     - Write final output to csv
     """
 
+    TEST_FOLDER_NAME = "test_image"
+
     @staticmethod
     def _create_submission(all_predictions):
-        final_result_df = pd.concat(all_preds, axis=1)
+        final_result_df = pd.concat(all_predictions, axis=1)
         pred_img_nums = final_result_df.iloc[:, 0].values
         # Combine predictions using mode i.e most common value for image
         pred_img_vals = final_result_df["Label"].mode(axis=1).values
@@ -24,8 +27,10 @@ class CustomEnsemblePredict:
         return final_df
 
     @classmethod
-    def create_df(cls, learner, test_path, num_images):
-        test_nums = [f"{test_path}/{num}.png" for num in range(num_images)]
+    def _create_df(cls, test_learner, test_path, num_images):
+        test_nums = [
+            f"{test_path}/{cls.TEST_FOLDER_NAME}/{num}.png" for num in range(num_images)
+        ]
         test_images = get_image_files(test_path)
         test_df = pd.DataFrame({"name": test_nums})
         predictions = []
@@ -51,7 +56,7 @@ class CustomEnsemblePredict:
         num_images = cls._fetch_num_images(test_path)
         all_predictions = []
         for model in models:
-            pred_df = cls.create_df(model, test_path, num_images)
+            pred_df = cls._create_df(model, test_path, num_images)
             all_predictions.append(pred_df)
         final_df = cls._create_submission(models)
         return final_df
