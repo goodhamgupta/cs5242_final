@@ -1,7 +1,7 @@
 class DataAugmentor:
 
     @classmethod
-    def fetch(cls, imagesize: int, batch_size: int):
+    def fetch(cls, df, imagesize: int, batch_size: int):
         """
         Function to create a dataloader with the required transformations
         """
@@ -18,7 +18,7 @@ class DataAugmentor:
         )
         img_loader = ImageDataLoaders.from_df(
             df[["name", "label"]],
-            valid_pct=0.2,
+            valid_pct=0.1,
             seed=5242,
             device="cuda:0",
             item_tfms=Resize(460),
