@@ -1,5 +1,6 @@
+import os
 import pandas as pd
-from fastai.vision import get_image_files
+from fastai.vision.data import get_image_files
 
 
 class CustomEnsemblePredict:
@@ -36,13 +37,21 @@ class CustomEnsemblePredict:
         return pred_df
 
     @classmethod
-    def perform_prediction(cls, models, test_path, num_images):
+    def _fetch_num_images(cls, test_path):
+        """
+        Function to fetch the number of test images
+        """
+        return len(os.listdir(test_path))
+
+    @classmethod
+    def perform_prediction(cls, models, test_path):
         """
         Function to perform prediction
         """
+        num_images = cls._fetch_num_images(test_path)
         all_predictions = []
         for model in models:
             pred_df = cls.create_df(model, test_path, num_images)
             all_predictions.append(pred_df)
         final_df = cls._create_submission(models)
-        final_df.to_csv("submission.csv", index=False)
+        return final_df
