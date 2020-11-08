@@ -1,0 +1,5 @@
+torch==1.7.0
+fastai==2.1.4
+torchvision>=0.8
+numpy
+pandas
