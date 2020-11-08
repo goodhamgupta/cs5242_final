@@ -6,7 +6,7 @@ from fastai.vision.all import *
 class CustomEnsemble:
 
     TOTAL_EPOCHS = 10
-    FREEZE_EPOCHS = 3
+    FREEZE_EPOCHS = 10
 
     @classmethod
     def get_models(cls, train_df):
@@ -28,21 +28,21 @@ class CustomEnsemble:
                 model_dir="/tmp/model/",  # Destination dir for model weights
             )
 
-            #print("training for 224x224")
-            #learn_resnet.set_data = (224, 4)  # Train the model for imagesize 224
-            #lr_find_result = learn_resnet.lr_find()
-            ## using the learning rate for the first model
-            #learn_resnet.fine_tune(
-            #    cls.TOTAL_EPOCHS, lr_find_result[0], freeze_epochs=cls.FREEZE_EPOCHS
-            #)
+            print("training for 224x224")
+            learn_resnet.set_data = (224, 4)  # Train the model for imagesize 224
+            lr_find_result = learn_resnet.lr_find()
+            # using the learning rate for the first model
+            learn_resnet.fine_tune(
+                cls.TOTAL_EPOCHS, lr_find_result.lr_min, freeze_epochs=cls.FREEZE_EPOCHS
+            )
 
-            ## Training for larger image size
-            #print("training for 320x320")
-            #learn_resnet.set_data = train_data(train_df, 320, 2)
-            #learn_resnet.fine_tune(cls.TOTAL_EPOCHS, freeze_epochs=cls.FREEZE_EPOCHS)
+            # Training for larger image size
+            print("training for 320x320")
+            learn_resnet.set_data = train_data(train_df, 320, 2)
+            learn_resnet.fine_tune(cls.TOTAL_EPOCHS, freeze_epochs=cls.FREEZE_EPOCHS)
 
-            ## Save model weights
-            #learn_resnet.save(f"ensem_model_{i}.weights")
+            # Save model weights
+            learn_resnet.save(f"ensem_model_{i}.weights")
             ensemble_models.append(learn_resnet)
             print(f"-----Training of model {i+1} complete----")
         return ensemble_models
