@@ -1,6 +1,6 @@
 .env/*
 *.png
 *.zip
-__pycache__/*
+__pycache__*
 sample_*
 submission.csv
