@@ -17,6 +17,9 @@ class CustomEnsemblePredict:
 
     @staticmethod
     def _create_submission(all_predictions):
+        """
+        Function to create final submission dataframe. Here, we combine all parameters using mode i.e most common prediction.
+        """
         final_result_df = pd.concat(all_predictions, axis=1)
         pred_img_nums = final_result_df.iloc[:, 0].values
         # Combine predictions using mode i.e most common value for image
@@ -28,6 +31,9 @@ class CustomEnsemblePredict:
 
     @classmethod
     def _create_df(cls, test_learner, test_path, num_images):
+        """
+        Function to create dataframe for testing.
+        """
         test_nums = [
             f"{test_path}/{cls.TEST_FOLDER_NAME}/{num}.png" for num in range(num_images)
         ]
