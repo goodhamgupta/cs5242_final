@@ -1,21 +1,26 @@
 import argparse
+import sys
 
 from code.data import DataAugmentor
 from code.models import CustomEnsemble
 from code.prediction import CustomEnsemblePredict
 
-parser = argparse.ArgumentParser(description="Create model and perform prediction.")
-parser.add_argument(
-    "--train_data",
-    type=str,
-    help="path to the folder containing training dataset and train_label.csv",
-)
-parser.add_argument("--test_data", help="path to the folder containing the test images")
 
-args = parser.parse_args()
+class CreateSubmission:
+    @classmethod
+    def execute(cls, train_path, test_path):
+        """
+        Function to trigger the workflow.
+        - Create augmented image dataset via DataAugmentor
+        - Train ensemble of resnet and densenet models using CustomEnsemble
+        - Create final prediction dataframe using CustomEnsemblePredict
+        - Write dataframe to csv using pandas
+        """
+        train_df = DataAugmentor.create_dataframe(train_path)
+        ensemble_models = CustomEnsemble.get_models(train_df)
+        final_df = CustomEnsemblePredict.perform_prediction(ensemble_models, test_path)
+        final_df.to_csv("submission.csv", index=False)
 
-train_df = DataAugmentor.create_dataframe(args.train_data)
-ensemble_models = CustomEnsemble.get_models(train_df)
-final_df = CustomEnsemblePredict.perform_prediction(ensemble_models, args.test_data)
-final_df.to_csv("submission.csv", index=False)
 
+if __name__ == "__main__":
+    CreateSubmission.execute(sys.argv[1], sys.argv[2])

@@ -38,10 +38,10 @@ pip install -r requirements.txt
 - You can run the project using the command:
 
 ```
-python run.py --train_data train_data --test_data test_data
+python run.py train_data test_data
 ```
 
-- Ensure that there are no trailing slashes in the argument. Example: `--train_data train_data/` is incorrect. Use `--train_data train_data` instead.
+- **WARNING**: Ensure that there are no trailing slashes in the argument. Example: `train_data/` is incorrect. Use `train_data` instead.
 
 ## Note
 

@@ -4,3 +4,4 @@
 __pycache__*
 sample_*
 submission.csv
+models/*
