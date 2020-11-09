@@ -2,3 +2,5 @@
 *.png
 *.zip
 __pycache__/*
+sample_*
+submission.csv

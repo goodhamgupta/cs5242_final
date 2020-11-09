@@ -58,5 +58,5 @@ class CustomEnsemblePredict:
         for model in models:
             pred_df = cls._create_df(model, test_path, num_images)
             all_predictions.append(pred_df)
-        final_df = cls._create_submission(models)
+        final_df = cls._create_submission(all_predictions)
         return final_df
