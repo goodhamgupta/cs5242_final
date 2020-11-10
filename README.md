@@ -30,6 +30,7 @@ test_data/
 ```
 pip install -r requirements.txt
 ```
+- This project is implemented using PyTorch and FastAI.
 
 ## Run
 
