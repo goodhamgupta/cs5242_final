@@ -49,6 +49,14 @@ python run.py train_data test_data
   - We have set all possible random seed during the training and test procedure. However, because of multiprocessing to do image augmentation/training and floating point differences, we are unable to get an exact match with the leaderboard submission. 
   - Removing multiprocessing might help get slightly more accurate results, however I’ve noticed that this is extremely slow, because we use an ensemble of 4 models(resnets and densenets). 
 
+- Since the validation set is empty, accuracy, valid_error and RocAuc will be None.
+  - To enable these metrics, change the valid_pct in DataAugmentor class to 0.1 i.e 10% dataset as validation set at line number 54.
+  - Replace metrics in cnn_learner in CustomEnsemble line 34 with the one in the line below
+  ```py
+  metrics=[error_rate, accuracy, RocAuc()],
+  ```
+
+
 Overall, we have noticed the following variation:
 
 Public Leaderboard: 0.986-0.993

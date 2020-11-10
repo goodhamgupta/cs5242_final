@@ -20,6 +20,7 @@ class CreateSubmission:
         ensemble_models = CustomEnsemble.get_models(train_df)
         final_df = CustomEnsemblePredict.perform_prediction(ensemble_models, test_path)
         final_df.to_csv("submission.csv", index=False)
+        print("Success! Submission file created with name: submission.csv")
 
 
 if __name__ == "__main__":

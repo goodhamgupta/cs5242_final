@@ -12,6 +12,10 @@ class CustomEnsemble:
 
     @classmethod
     def get_models(cls, train_df):
+        """
+        Function to train each of the models individually on the data and return a
+        list of trained models i.e the ensemble.
+        """
         # Empty List of ensemble model, We will store the trained learner objects here.
         ensemble_models = []
         model_list = [
@@ -23,7 +27,7 @@ class CustomEnsemble:
         for i in range(len(model_list)):
             print(f"-----Training model: {i+1}--------")
             small_data = DataAugmentor.fetch(train_df, 224, 64)
-            # Since the validation set is empty, accuracy and RocAuc will be None.
+            # Since the validation set is empty, accuracy, valid_error and RocAuc will be None.
             # To enable these metrics, change the valid_pct in DataAugmentor class to 0.1 i.e 10% dataset as validation set. Line number 54.
             # Replace metrics in cnn_learner with the one in the line below
             # metrics=[error_rate, accuracy, RocAuc()],
