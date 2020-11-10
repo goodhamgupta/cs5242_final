@@ -16,10 +16,10 @@ kaggle competitions download -c nus-cs5242; unzip nus-cs5242.zip
 ```
 train_data/
     train_label.csv
-    train_images/
+    train_image/
 
 test_data/
-    test_images/
+    test_image/
 ```
 
 
