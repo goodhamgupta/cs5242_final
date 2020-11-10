@@ -53,11 +53,12 @@ python run.py train_data test_data
   - To enable these metrics, change the valid_pct in DataAugmentor class to 0.1 i.e 10% dataset as validation set at line number 54.
   - Replace metrics in cnn_learner in CustomEnsemble line 34 with the one in the line below
   ```py
-  metrics=[error_rate, accuracy, RocAuc()],
+    metrics=[error_rate, accuracy, RocAuc()],
   ```
 
 
 Overall, we have noticed the following variation:
 
 Public Leaderboard: 0.986-0.993
+
 Private Leaderboard: 0.965-0.972
